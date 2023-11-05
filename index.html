@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ponderados-Usco</title>
+    <style>
+
+        body {
+             font-family: Arial, sans-serif;
+            background-image: url('fondo.jpg'); 
+            /*background-size: cover; */
+            background-repeat: repeat;
+            background-size: 70%;
+            background-position: center;
+            border: 0;
+            margin: 0;
+        }
+
+        input {
+            padding: 4px;
+            border-radius: 8px;
+            background-color: white;
+            color: grey;
+            border: 1px solid grey;
+            text-align: center;
+        }
+
+        button {
+            cursor: pointer;
+            padding: 6px;
+            border-radius: 8px;
+            background-color: white;
+            color: grey;
+            border: 1px solid grey;
+            text-align: center;
+        }
+
+        button:hover {
+            background-color: whitesmoke;
+            color: black;
+            border: 1px solid black;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            border: 0.8px solid #e3e6f0;
+        }
+
+        th, td {
+            width: 12.5%;
+            text-align: center;
+            padding-left: 10px;
+            padding-right: 10px;
+            padding-top: 14px;
+            padding-bottom: 14px;
+            vertical-align: middle;
+        }
+
+        .nav {
+            background-color: #8d191d ;
+            height: 70px;
+            margin-bottom: 15px;
+            padding-left: 25px;
+        }
+
+        .container {
+            width: 70%;
+            border: 0.1px solid grey;
+            margin: auto;
+            background-color: #f8f9fc;
+            border-radius: 8px;
+        }
+
+        .title {
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            border-bottom: 0.8px solid #e3e6f0;
+        }
+
+
+        .title h2 {
+            font-weight: 700 !important;
+            color: grey;
+            padding: 12px;
+
+        }
+
+        .parrafo {
+            text-align: justify;
+            word-wrap: break-word;
+        }
+
+        .parrafo p {
+            padding-left: 30px;
+            padding-right: 30px;
+            padding-top: 10px;
+            padding-bottom: 8px;
+            text-align: justify;
+            font-size: 18px;
+            color: grey;
+            line-height: 1.4;
+        }
+
+        .resultado {
+            color: red;
+        }
+
+        .cont_alert {
+            background: #fe0;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 10px;
+        }
+
+        .alert {
+            color: #8d191d;
+            width: 100%;
+            text-align: center;
+            padding: 10px;
+            font-weight: 600;
+
+        }
+
+        .container_table {
+            padding: 14px;
+            margin-top: 8px;
+        }
+
+        .th_title {
+            font-weight: bold;
+            color: grey;
+        }
+
+        .td_subtitle {
+            font-weight: 200;
+            color: grey;
+
+        }
+
+    @media (max-width: 768px) {
+        .container {
+            width: 100%;
+        }
+
+        table {
+            overflow-x: auto;
+        }
+
+           th, td {
+            width: 12.5%;
+            text-align: center;
+            padding-left: 2px;
+            padding-right: 2px;
+            padding-top: 8px;
+            padding-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .container_table {
+            width: 100%;
+            overflow-x: auto;
+            padding: 2px;
+        }
+
+}
+
+    </style>
+</head>
+<body>
+
+    <div class="nav">
+        <img src="usco.png" alt="Logo USCO" height="70px" > <!-- Asegúrate de reemplazar "usco.png" con la ruta correcta de tu imagen -->
+    </div>
+  
+  <div class="container">
+     
+     <div class="title">
+            <h2>SIMULADOR DE PONDERACIONES USCO</h2>
+     </div>
+
+
+    <div class="parrafo">
+        <p>El presente es un aplicativo simulador en el que podrá realizar el ejercicio para conocer su puntaje ponderado, según los resultados de las áreas evaluadas por el ICFES; lo que le permitirá una aproximación con los puntajes de cierre de los dos (2) últimos periodos académicos inmediatamente anterior</p>
+    </div>
+
+    
+    <div class="cont_alert">
+        <small class="alert">ESTA ES UNA HERRAMIENTA DE ORIENTACIÓN, NO ES UNA GARANTÍA DE ADMISIÓN A LA UNIVERSIDAD SURCOLOMBIANA.</small>
+    </div>
+    
+
+    <div class="container_table">
+        <table border="1">
+        <tr>
+            <th class="th_title">ÁREA</th>
+            <th class="th_title">Lectura Crítica</th>
+            <th class="th_title">Ciencias Naturales</th>
+            <th class="th_title">Ciencias Sociales</th>
+            <th class="th_title">Matemáticas</th>
+            <th class="th_title">Inglés</th>
+            <th class="resultado">Su Puntaje Ponderado</th>
+            <th class="th_title">Puntaje de Cierre 2023-I</th>
+        </tr>
+        <tr>
+            <td class="td_subtitle">Ingrese aquí su puntaje ICFES</td>
+            <td><input type="number" id="lc" min="0" max="99" value="0" oninput="validarMaximo(this, 99)" /></td>
+            <td><input type="number" id="cn" min="0" max="99" value="0" oninput="validarMaximo(this, 99)"/></td>
+            <td><input type="number" id="cs" min="0" max="99" value="0" oninput="validarMaximo(this, 99)"/></td>
+            <td><input type="number" id="m" min="0" max="99" value="0" oninput="validarMaximo(this, 99)"/></td>
+            <td><input type="number" id="i" min="0" max="99" value="0" oninput="validarMaximo(this, 99)"/></td>
+            <td><button onclick="calcularAfinidad()">Calcular</button></td>
+            <td></td>
+
+        </tr>
+        <tr>
+            <td class="td_subtitle">Matemática Aplicada</td>
+            <td class="td_subtitle">30%</td>
+            <td class="td_subtitle">25%</td>
+            <td class="td_subtitle">0%</td>
+            <td class="td_subtitle">35%</td>
+            <td class="td_subtitle">10%</td>
+            <td><span id="matematica" class="resultado">0</span></td>
+            <td class="td_subtitle">48,60</td>
+        </tr>
+        <tr>
+            <td class="td_subtitle">Física</td>
+            <td class="td_subtitle">15%</td>
+            <td class="td_subtitle">50%</td>
+            <td class="td_subtitle">0%</td>
+            <td class="td_subtitle">30%</td>
+            <td class="td_subtitle">5%</td>
+            <td ><span id="fisica" class="resultado">0</span></td>
+            <td class="td_subtitle">49,55</td>
+        </tr>
+        <tr>
+            <td class="td_subtitle">Biología Aplicada</td>
+            <td class="td_subtitle">25%</td>
+            <td class="td_subtitle">55%</td>
+            <td class="td_subtitle">0%</td>
+            <td class="td_subtitle">10%</td>
+            <td class="td_subtitle">10%</td>
+            <td><span id="biologia" class="resultado">0</span></td>
+            <td class="td_subtitle">60,70</td>
+        </tr>
+        <tr>
+            <td class="td_subtitle">Derecho (Diurna)</td>
+            <td class="td_subtitle">55%</td>
+            <td class="td_subtitle">0%</td>
+            <td class="td_subtitle">20%</td>
+            <td class="td_subtitle">10%</td>
+            <td class="td_subtitle">15%</td>
+            <td><span id="derechodi" class="resultado">0</span></td>
+            <td class="td_subtitle">70,05</td>
+        </tr>
+        <tr>
+            <td class="td_subtitle">Derecho (Nocturna)</td>
+            <td class="td_subtitle">55%</td>
+            <td class="td_subtitle">0%</td>
+            <td class="td_subtitle">20%</td>
+            <td class="td_subtitle">10%</td>
+            <td class="td_subtitle">15%</td>
+            <td><span id="derechono" class="resultado">0</span></td>
+            <td class="td_subtitle">63,15</td>
+        </tr>
+        <tr>
+            <td class="td_subtitle">Ciencia Política</td>
+            <td class="td_subtitle">40%</td>
+            <td class="td_subtitle">9%</td>
+            <td class="td_subtitle">20%</td>
+            <td class="td_subtitle">15%</td>
+            <td class="td_subtitle">16%</td>
+            <td><span id="cienpolitica" class="resultado">0</span></td>
+            <td class="td_subtitle">54,23</td>
+        </tr>
+        <tr>
+            <td class="td_subtitle">Comonucación Social y Periodismo</td>
+            <td class="td_subtitle">50%</td>
+            <td class="td_subtitle">5%</td>
+            <td class="td_subtitle">40%</td>
+            <td class="td_subtitle">5%</td>
+            <td class="td_subtitle">0%</td>
+            <td><span id="comusocial" class="resultado">0</span></td>
+            <td class="td_subtitle">57,95</td>
+        </tr>
+        <tr>
+            <td class="td_subtitle">Antropología</td>
+            <td class="td_subtitle">25%</td>
+            <td class="td_subtitle">20%</td>
+            <td class="td_subtitle">45%</td>
+            <td class="td_subtitle">5%</td>
+            <td class="td_subtitle">5%</td>
+            <td><span id="antropologia" class="resultado">0</span></td>
+            <td class="td_subtitle">37,25</td>
+        </tr>
+        <tr>
+            <td class="td_subtitle">Psicología</td>
+            <td class="td_subtitle">30%</td>
+            <td class="td_subtitle">20%</td>
+            <td class="td_subtitle">25%</td>
+            <td class="td_subtitle">15%</td>
+            <td class="td_subtitle">10%</td>
+            <td><span id="psicologia" class="resultado">0</span></td>
+            <td class="td_subtitle">64,15</td>
+        </tr>
+        <tr>
+            <td class="td_subtitle">Administración de Empresas (Diurna)</td>
+            <td class="td_subtitle">46%</td>
+            <td class="td_subtitle">3%</td>
+            <td class="td_subtitle">14%</td>
+            <td class="td_subtitle">25%</td>
+            <td class="td_subtitle">12%</td>
+            <td><span id="admindi" class="resultado">0</span></td>
+            <td class="td_subtitle">58,37</td>
+        </tr>
+        <tr>
+            <td class="td_subtitle">Administración de Empresas (Nocturna)</td>
+            <td class="td_subtitle">46%</td>
+            <td class="td_subtitle">3%</td>
+            <td class="td_subtitle">14%</td>
+            <td class="td_subtitle">25%</td>
+            <td class="td_subtitle">12%</td>
+            <td><span id="adminno" class="resultado">0</span></td>
+            <td class="td_subtitle">55,31</td>
+        </tr>
+        <tr>
+            <td class="td_subtitle">Contaduría Pública (Diurna)</td>
+            <td class="td_subtitle">46%</td>
+            <td class="td_subtitle">3%</td>
+            <td class="td_subtitle">14%</td>
+            <td class="td_subtitle">25%</td>
+            <td class="td_subtitle">12%</td>
+            <td><span id="contadi" class="resultado">0</span></td>
+            <td class="td_subtitle">61,10</td>
+        </tr>
+        <tr>
+            <td class="td_subtitle">Contaduría Pública (Nocturna)</td>
+            <td class="td_subtitle">46%</td>
+            <td class="td_subtitle">3%</td>
+            <td class="td_subtitle">14%</td>
+            <td class="td_subtitle">25%</td>
+            <td class="td_subtitle">12%</td>
+            <td><span id="contano" class="resultado">0</span></td>
+            <td class="td_subtitle">56,02</td>
+        </tr>
+        <tr>
+            <td class="td_subtitle">Economía</td>
+            <td class="td_subtitle">43%</td>
+            <td class="td_subtitle">3%</td>
+            <td class="td_subtitle">9%</td>
+            <td class="td_subtitle">33%</td>
+            <td class="td_subtitle">12%</td>
+            <td><span id="economia" class="resultado">0</span></td>
+            <td class="td_subtitle">60,98</td>
+        </tr>
+        <tr>
+            <td class="td_subtitle">Administración Financiera</td>
+            <td class="td_subtitle">41%</td>
+            <td class="td_subtitle">3%</td>
+            <td class="td_subtitle">14%</td>
+            <td class="td_subtitle">30%</td>
+            <td class="td_subtitle">12%</td>
+            <td><span id="financiera" class="resultado">0</span></td>
+            <td class="td_subtitle">49,47</td>
+        </tr>
+        <tr>
+            <td class="td_subtitle">Medicina</td>
+            <td class="td_subtitle">21%</td>
+            <td class="td_subtitle">40%</td>
+            <td class="td_subtitle">12%</td>
+            <td class="td_subtitle">20%</td>
+            <td class="td_subtitle">7%</td>
+            <td><span id="medicina" class="resultado">0</span></td>
+            <td class="td_subtitle">78,73</td>
+        </tr>
+        <tr>
+            <td class="td_subtitle">Enfermería</td>
+            <td class="td_subtitle">28%</td>
+            <td class="td_subtitle">44%</td>
+            <td class="td_subtitle">10%</td>
+            <td class="td_subtitle">10%</td>
+            <td class="td_subtitle">8%</td>
+            <td><span id="enfermeria" class="resultado">0</span></td>
+            <td class="td_subtitle">70,62</td>
+        </tr>
+        <tr>
+            <td class="td_subtitle">Licenciatura en Matemáticas</td>
+            <td class="td_subtitle">35%</td>
+            <td class="td_subtitle">15%</td>
+            <td class="td_subtitle">4%</td>
+            <td class="td_subtitle">40%</td>
+            <td class="td_subtitle">6%</td>
+            <td><span id="licmat" class="resultado">0</span></td>
+            <td class="td_subtitle">47,97</td>
+        </tr>
+        <tr>
+            <td class="td_subtitle">Licenciatura en Lenguas Extranjeras con Énfasis en Inglés</td>
+            <td class="td_subtitle">40%</td>
+            <td class="td_subtitle">6%</td>
+            <td class="td_subtitle">4%</td>
+            <td class="td_subtitle">5%</td>
+            <td class="td_subtitle">45%</td>
+            <td><span id="licing" class="resultado">0</span></td>
+            <td class="td_subtitle">72,19</td>
+        </tr>
+        <tr>
+            <td class="td_subtitle">Licenciatura en Literatura y Lengua Castellana</td>
+            <td class="td_subtitle">60%</td>
+            <td class="td_subtitle">0%</td>
+            <td class="td_subtitle">20%</td>
+            <td class="td_subtitle">10%</td>
+            <td class="td_subtitle">10%</td>
+            <td><span id="liccas" class="resultado">0</span></td>
+            <td class="td_subtitle">60,20</td>
+        </tr>
+        <tr>
+            <td class="td_subtitle">Licenciatura en Educación Infantil</td>
+            <td class="td_subtitle">40%</td>
+            <td class="td_subtitle">20%</td>
+            <td class="td_subtitle">12%</td>
+            <td class="td_subtitle">20%</td>
+            <td class="td_subtitle">8%</td>
+            <td><span id="licedu" class="resultado">0</span></td>
+            <td class="td_subtitle">54,52</td>
+        </tr>
+        <tr>
+            <td class="td_subtitle">Licenciatura en Educación Artística</td>
+            <td class="td_subtitle">35%</td>
+            <td class="td_subtitle">10%</td>
+            <td class="td_subtitle">30%</td>
+            <td class="td_subtitle">20%</td>
+            <td class="td_subtitle">5%</td>
+            <td><span id="licart" class="resultado">0</span></td>
+            <td class="td_subtitle">55,30</td>
+        </tr>
+        <tr>
+            <td class="td_subtitle">Licenciatura en Educación Física, Recreación y Deportes*</td>
+            <td class="td_subtitle">25%</td>
+            <td class="td_subtitle">33%</td>
+            <td class="td_subtitle">15%</td>
+            <td class="td_subtitle">14%</td>
+            <td class="td_subtitle">13%</td>
+            <td><span id="licdep" class="resultado">0</span></td>
+            <td class="td_subtitle">207,095</td>
+        </tr>
+        <tr>
+            <td class="td_subtitle">Licenciatura en Ciencias Naturales y Educación Ambiental</td>
+            <td class="td_subtitle">15%</td>
+            <td class="td_subtitle">45%</td>
+            <td class="td_subtitle">0%</td>
+            <td class="td_subtitle">35%</td>
+            <td class="td_subtitle">5%</td>
+            <td><span id="licamb" class="resultado">0</span></td>
+            <td class="td_subtitle">52,90</td>
+        </tr>
+        <tr>
+            <td class="td_subtitle">Licenciatura en Ciencias Sociales</td>
+            <td class="td_subtitle">30%</td>
+            <td class="td_subtitle">15%</td>
+            <td class="td_subtitle">40%</td>
+            <td class="td_subtitle">5%</td>
+            <td class="td_subtitle">10%</td>
+            <td><span id="licsoc" class="resultado">0</span></td>
+            <td class="td_subtitle">56,45</td>
+        </tr>
+        <tr>
+            <td class="td_subtitle">Ingeniería Civil</td>
+            <td class="td_subtitle">20%</td>
+            <td class="td_subtitle">40%</td>
+            <td class="td_subtitle">5%</td>
+            <td class="td_subtitle">30%</td>
+            <td class="td_subtitle">5%</td>
+            <td><span id="ingcivil" class="resultado">0</span></td>
+            <td class="td_subtitle">68,75</td>
+        </tr>
+        <tr>
+            <td class="td_subtitle">Ingeniería de Petróleos </td>
+            <td class="td_subtitle">17%</td>
+            <td class="td_subtitle">33%</td>
+            <td class="td_subtitle">10%</td>
+            <td class="td_subtitle">25%</td>
+            <td class="td_subtitle">15%</td>
+            <td><span id="ingpetroleos" class="resultado">0</span></td>
+            <td class="td_subtitle">42,34</td>
+        </tr>
+        <tr>
+            <td class="td_subtitle">Ingeniería Agrícola</td>
+            <td class="td_subtitle">13%</td>
+            <td class="td_subtitle">45%</td>
+            <td class="td_subtitle">7%</td>
+            <td class="td_subtitle">30%</td>
+            <td class="td_subtitle">5%</td>
+            <td><span id="ingagricola" class="resultado">0</span></td>
+            <td class="td_subtitle">52,42</td>
+        </tr>
+        <tr>
+            <td class="td_subtitle">Ingeniería Electrónica</td>
+            <td class="td_subtitle">15%</td>
+            <td class="td_subtitle">40%</td>
+            <td class="td_subtitle">0%</td>
+            <td class="td_subtitle">30%</td>
+            <td class="td_subtitle">15%</td>
+            <td><span id="ingelectronica" class="resultado">0</span></td>
+            <td class="td_subtitle">65,90</td>
+        </tr>
+        <tr>
+            <td class="td_subtitle">Ingeniería de Software</td>
+            <td class="td_subtitle">22%</td>
+            <td class="td_subtitle">12%</td>
+            <td class="td_subtitle">6%</td>
+            <td class="td_subtitle">35%</td>
+            <td class="td_subtitle">25%</td>
+            <td><span id="ingsoftware" class="resultado">0</span></td>
+            <td class="td_subtitle">72,43</td>
+        </tr>
+        <tr>
+            <td class="td_subtitle">Ingeniería Agroindustrial</td>
+            <td class="td_subtitle">11%</td>
+            <td class="td_subtitle">50%</td>
+            <td class="td_subtitle">4%</td>
+            <td class="td_subtitle">30%</td>
+            <td class="td_subtitle">5%</td>
+            <td><span id="ingagroindus" class="resultado">0</span></td>
+            <td class="td_subtitle">59,10</td>
+        </tr>
+        <tr>
+            <td class="td_subtitle">Tecnología en Desarrollo de Software</td>
+            <td class="td_subtitle">22%</td>
+            <td class="td_subtitle">12%</td>
+            <td class="td_subtitle">6%</td>
+            <td class="td_subtitle">35%</td>
+            <td class="td_subtitle">25%</td>
+            <td><span id="tecsoftware" class="resultado">0</span></td>
+            <td class="td_subtitle">63,69</td>
+        </tr>
+        <tr>
+            <td class="td_subtitle">Tecnología en Construcción de Obras Civiles</td>
+            <td class="td_subtitle">18%</td>
+            <td class="td_subtitle">40%</td>
+            <td class="td_subtitle">7%</td>
+            <td class="td_subtitle">30%</td>
+            <td class="td_subtitle">5%</td>
+            <td><span id="tecobras" class="resultado">0</span></td>
+            <td class="td_subtitle">53,92</td>
+        </tr>
+        <tr>
+            <td class="td_subtitle">Derecho (Sede Pitalito)</td>
+            <td class="td_subtitle">55%</td>
+            <td class="td_subtitle">0%</td>
+            <td class="td_subtitle">20%</td>
+            <td class="td_subtitle">10%</td>
+            <td class="td_subtitle">15%</td>
+            <td><span id="derechopita" class="resultado">0</span></td>
+            <td class="td_subtitle">58,95</td>
+        </tr>
+        <tr>
+        <td class="td_subtitle">Administración de Empresas (Nocturna, Sede Pitalito)</td>
+            <td class="td_subtitle">46%</td>
+            <td class="td_subtitle">3%</td>
+            <td class="td_subtitle">14%</td>
+            <td class="td_subtitle">25%</td>
+            <td class="td_subtitle">12%</td>
+            <td><span id="adminnopita" class="resultado">0</span></td>
+            <td class="td_subtitle">41,0</td>
+        </tr>
+        <tr>
+            <td class="td_subtitle">Contaduría Pública (Nocturna, Sede Pitalito)</td>
+            <td class="td_subtitle">46%</td>
+            <td class="td_subtitle">3%</td>
+            <td class="td_subtitle">14%</td>
+            <td class="td_subtitle">25%</td>
+            <td class="td_subtitle">12%</td>
+            <td><span id="contanopita" class="resultado">0</span></td>
+            <td class="td_subtitle">37,43</td>
+        </tr>
+        <tr>
+            <td class="td_subtitle">Administración Turística y Hotelera (Sede Pitalito)</td>
+            <td class="td_subtitle">41%</td>
+            <td class="td_subtitle">3%</td>
+            <td class="td_subtitle">16%</td>
+            <td class="td_subtitle">25%</td>
+            <td class="td_subtitle">15%</td>
+            <td><span id="admintu" class="resultado">0</span></td>
+            <td class="td_subtitle">44,87</td>
+        </tr>
+        <tr>
+            <td class="td_subtitle">Ingeniería Agrícola (Sede Pitalito) </td>
+            <td class="td_subtitle">13%</td>
+            <td class="td_subtitle">45%</td>
+            <td class="td_subtitle">7%</td>
+            <td class="td_subtitle">30%</td>
+            <td class="td_subtitle">5%</td>
+            <td><span id="agripita" class="resultado">0</span></td>
+            <td class="td_subtitle">44,03</td>
+        </tr>
+        <tr>
+            <td class="td_subtitle">Administración de Empresas (Nocturna, Sede La Plata)</td>
+                <td class="td_subtitle">46%</td>
+                <td class="td_subtitle">3%</td>
+                <td class="td_subtitle">14%</td>
+                <td class="td_subtitle">25%</td>
+                <td class="td_subtitle">12%</td>
+                <td><span id="adminplata" class="resultado">0</span></td>
+                <td class="td_subtitle">33,11</td>
+        </tr>
+        <tr>
+            <td class="td_subtitle">Contaduría Pública (Nocturna, Sede La Plata)</td>
+            <td class="td_subtitle">46%</td>
+            <td class="td_subtitle">3%</td>
+            <td class="td_subtitle">14%</td>
+            <td class="td_subtitle">25%</td>
+            <td class="td_subtitle">12%</td>
+            <td><span id="contaplata" class="resultado">0</span></td>
+            <td class="td_subtitle">40,06</td>
+        </tr>
+        <tr>
+            <td class="td_subtitle">Ingeniería Agrícola (Sede La Plata) </td>
+            <td class="td_subtitle">13%</td>
+            <td class="td_subtitle">45%</td>
+            <td class="td_subtitle">7%</td>
+            <td class="td_subtitle">30%</td>
+            <td class="td_subtitle">5%</td>
+            <td><span id="agriplata" class="resultado">0</span></td>
+            <td class="td_subtitle">29,55</td>
+        </tr>
+        <tr>
+            <td class="td_subtitle">Administración de Empresas (Nocturna, Sede Garzón)</td>
+                <td class="td_subtitle">46%</td>
+                <td class="td_subtitle">3%</td>
+                <td class="td_subtitle">14%</td>
+                <td class="td_subtitle">25%</td>
+                <td class="td_subtitle">12%</td>
+                <td><span id="admingarzon" class="resultado">0</span></td>
+                <td class="td_subtitle">30,0</td>
+        </tr>
+        <tr>
+            <td class="td_subtitle">Contaduría Pública (Nocturna, Sede Garzón)</td>
+            <td class="td_subtitle">46%</td>
+            <td class="td_subtitle">3%</td>
+            <td class="td_subtitle">14%</td>
+            <td class="td_subtitle">25%</td>
+            <td class="td_subtitle">12%</td>
+            <td><span id="contagarzon" class="resultado">0</span></td>
+            <td class="td_subtitle">30,59</td>
+        </tr>
+        <tr>
+            <td class="td_subtitle">Ingeniería Agrícola (Sede Garzón) </td>
+            <td class="td_subtitle">13%</td>
+            <td class="td_subtitle">45%</td>
+            <td class="td_subtitle">7%</td>
+            <td class="td_subtitle">30%</td>
+            <td class="td_subtitle">5%</td>
+            <td><span id="agrigarzon" class="resultado">0</span></td>
+            <td class="td_subtitle">35,47</td>
+        </tr>
+        
+    </table>
+    </div>
+    <br><br>
+  </div>
+
+   <script>
+        function validarMaximo(input, max) {
+         if (input.value > max) {
+             input.value = max; // Si se supera el límite, establecer el valor al máximo permitido
+             }
+        }           
+
+        function calcularAfinidad() {
+            // Establecer los valores iniciales como 0
+            var lc = 0;
+            var cn = 0;
+            var cs = 0;
+            var m = 0;
+            var i = 0;
+
+            // Obtener los valores ingresados por el usuario y convertirlos a números
+            lc = parseFloat(document.getElementById("lc").value);
+            cn = parseFloat(document.getElementById("cn").value);
+            cs = parseFloat(document.getElementById("cs").value);
+            m = parseFloat(document.getElementById("m").value);
+            i = parseFloat(document.getElementById("i").value);
+
+            // Verificar si los inputs están vacíos y establecerlos a 0 si es necesario
+            lc = isNaN(lc) ? 0 : lc;
+            cn = isNaN(cn) ? 0 : cn;
+            cs = isNaN(cs) ? 0 : cs;
+            m = isNaN(m) ? 0 : m;
+            i = isNaN(i) ? 0 : i;
+
+            var matematica = (lc * 0.3 + cn * 0.25 + cs * 0.0 + m * 0.35 + i * 0.1).toFixed(2);
+            var fisica = (lc * 0.15 + cn * 0.5 + cs * 0.0 + m * 0.3 + i * 0.05).toFixed(2);
+            var biologia = (lc * 0.25 + cn * 0.55 + cs * 0.0 + m * 0.1 + i * 0.1).toFixed(2);
+            var derechodi = (lc * 0.55 + cn * 0.0 + cs * 0.2 + m * 0.1 + i * 0.15).toFixed(2);
+            var derechono = (lc * 0.55 + cn * 0.0 + cs * 0.2 + m * 0.1 + i * 0.15).toFixed(2);
+            var cienpolitica = (lc * 0.4 + cn * 0.09 + cs * 0.2 + m * 0.15 + i * 0.16).toFixed(2);
+            var comusocial = (lc * 0.5 + cn * 0.05 + cs * 0.4 + m * 0.05 + i * 0.0).toFixed(2);
+            var antropologia = (lc * 0.25 + cn * 0.20 + cs * 0.45 + m * 0.05 + i * 0.05).toFixed(2);
+            var psicologia = (lc * 0.30 + cn * 0.20 + cs * 0.25 + m * 0.15 + i * 0.10).toFixed(2);
+            var admindi = (lc * 0.46 + cn * 0.03 + cs * 0.14 + m * 0.25 + i * 0.12).toFixed(2);
+            var adminno = (lc * 0.46 + cn * 0.03 + cs * 0.14 + m * 0.25 + i * 0.12).toFixed(2);
+            var contadi = (lc * 0.46 + cn * 0.03 + cs * 0.14 + m * 0.25 + i * 0.12).toFixed(2);
+            var contano = (lc * 0.46 + cn * 0.03 + cs * 0.14 + m * 0.25 + i * 0.12).toFixed(2);
+            var economia = (lc * 0.43 + cn * 0.03 + cs * 0.09 + m * 0.33 + i * 0.12).toFixed(2);
+            var financiera = (lc * 0.41 + cn * 0.03 + cs * 0.14 + m * 0.30 + i * 0.12).toFixed(2);
+            var medicina = (lc * 0.21 + cn * 0.40 + cs * 0.12 + m * 0.20 + i * 0.07).toFixed(2);
+            var enfermeria = (lc * 0.28 + cn * 0.44 + cs * 0.10 + m * 0.10 + i * 0.08).toFixed(2);
+            var licmat = (lc * 0.35 + cn * 0.15 + cs * 0.04 + m * 0.40 + i * 0.06).toFixed(2);
+            var licing = (lc * 0.40 + cn * 0.06 + cs * 0.04 + m * 0.05 + i * 0.45).toFixed(2);
+            var liccas = (lc * 0.60 + cn * 0.0 + cs * 0.20 + m * 0.10 + i * 0.10).toFixed(2);
+            var licedu = (lc * 0.40 + cn * 0.20 + cs * 0.12 + m * 0.20 + i * 0.08).toFixed(2);
+            var licart = (lc * 0.35 + cn * 0.10 + cs * 0.30 + m * 0.20 + i * 0.05).toFixed(2);
+            var licdep = (lc * 0.25 + cn * 0.33 + cs * 0.15 + m * 0.14 + i * 0.13).toFixed(2);
+            var licamb = (lc * 0.15 + cn * 0.45 + cs * 0.0 + m * 0.35 + i * 0.05).toFixed(2);
+            var licsoc = (lc * 0.30 + cn * 0.15 + cs * 0.40 + m * 0.05 + i * 0.10).toFixed(2);
+            var ingcivil = (lc * 0.20 + cn * 0.40 + cs * 0.05 + m * 0.30 + i * 0.05).toFixed(2);
+            var ingpetroleos = (lc * 0.17 + cn * 0.33 + cs * 0.10 + m * 0.25 + i * 0.15).toFixed(2);
+            var ingagricola = (lc * 0.13 + cn * 0.45 + cs * 0.07 + m * 0.30 + i * 0.05).toFixed(2);
+            var ingelectronica = (lc * 0.15 + cn * 0.40 + cs * 0.0 + m * 0.30 + i * 0.15).toFixed(2);
+            var ingsoftware = (lc * 0.22 + cn * 0.12 + cs * 0.06 + m * 0.35 + i * 0.25).toFixed(2);
+            var ingagroindus = (lc * 0.11 + cn * 0.50 + cs * 0.04 + m * 0.30 + i * 0.05).toFixed(2);
+            var tecsoftware = (lc * 0.22 + cn * 0.12 + cs * 0.06 + m * 0.35 + i * 0.25).toFixed(2);
+            var tecobras = (lc * 0.18 + cn * 0.40 + cs * 0.07 + m * 0.30 + i * 0.05).toFixed(2);
+            var derechopita = (lc * 0.55 + cn * 0.0 + cs * 0.2 + m * 0.1 + i * 0.15).toFixed(2);
+            var adminnopita = (lc * 0.46 + cn * 0.03 + cs * 0.14 + m * 0.25 + i * 0.12).toFixed(2);
+            var contanopita = (lc * 0.46 + cn * 0.03 + cs * 0.14 + m * 0.25 + i * 0.12).toFixed(2);
+            var admintu = (lc * 0.41 + cn * 0.03 + cs * 0.16 + m * 0.25 + i * 0.15).toFixed(2);
+            var agripita = (lc * 0.13 + cn * 0.45 + cs * 0.07 + m * 0.30 + i * 0.05).toFixed(2);
+            var adminplata = (lc * 0.46 + cn * 0.03 + cs * 0.14 + m * 0.25 + i * 0.12).toFixed(2);
+            var contaplata = (lc * 0.46 + cn * 0.03 + cs * 0.14 + m * 0.25 + i * 0.12).toFixed(2);
+            var agriplata = (lc * 0.13 + cn * 0.45 + cs * 0.07 + m * 0.30 + i * 0.05).toFixed(2);
+            var admingarzon = (lc * 0.46 + cn * 0.03 + cs * 0.14 + m * 0.25 + i * 0.12).toFixed(2);
+            var contagarzon = (lc * 0.46 + cn * 0.03 + cs * 0.14 + m * 0.25 + i * 0.12).toFixed(2);
+            var agrigarzon = (lc * 0.13 + cn * 0.45 + cs * 0.07 + m * 0.30 + i * 0.05).toFixed(2);
+
+            document.getElementById("matematica").textContent = matematica;
+            document.getElementById("fisica").textContent = fisica;
+            document.getElementById("biologia").textContent = biologia;
+            document.getElementById("derechodi").textContent = derechodi;
+            document.getElementById("derechono").textContent = derechono;
+            document.getElementById("cienpolitica").textContent = cienpolitica;
+            document.getElementById("comusocial").textContent = comusocial;
+            document.getElementById("antropologia").textContent = antropologia;
+            document.getElementById("psicologia").textContent = psicologia;
+            document.getElementById("admindi").textContent = admindi;
+            document.getElementById("adminno").textContent = adminno;
+            document.getElementById("contadi").textContent = contadi;
+            document.getElementById("contano").textContent = contano;
+            document.getElementById("economia").textContent = economia;
+            document.getElementById("financiera").textContent = financiera;
+            document.getElementById("medicina").textContent = medicina;
+            document.getElementById("enfermeria").textContent = enfermeria;
+            document.getElementById("licmat").textContent = licmat;
+            document.getElementById("licing").textContent = licing;
+            document.getElementById("liccas").textContent = liccas;
+            document.getElementById("licedu").textContent = licedu;
+            document.getElementById("licart").textContent = licart;
+            document.getElementById("licdep").textContent = licdep;
+            document.getElementById("licamb").textContent = licamb;
+            document.getElementById("licsoc").textContent = licsoc;
+            document.getElementById("ingcivil").textContent = ingcivil;
+            document.getElementById("ingpetroleos").textContent = ingpetroleos;
+            document.getElementById("ingagricola").textContent = ingagricola;
+            document.getElementById("ingelectronica").textContent = ingelectronica;
+            document.getElementById("ingsoftware").textContent = ingsoftware;
+            document.getElementById("ingagroindus").textContent = ingagroindus;
+            document.getElementById("tecsoftware").textContent = tecsoftware;
+            document.getElementById("tecobras").textContent = tecobras;
+            document.getElementById("derechopita").textContent = derechopita;
+            document.getElementById("adminnopita").textContent = adminnopita;
+            document.getElementById("contanopita").textContent = contanopita;
+            document.getElementById("admintu").textContent = admintu;
+            document.getElementById("agripita").textContent = agripita;
+            document.getElementById("adminplata").textContent = adminplata;
+            document.getElementById("contaplata").textContent = contaplata;
+            document.getElementById("agriplata").textContent = agriplata;
+            document.getElementById("admingarzon").textContent = admingarzon;
+            document.getElementById("contagarzon").textContent = contagarzon;
+            document.getElementById("agrigarzon").textContent = agrigarzon;
+
+
+
+         
+          
+        }   
+    </script>
+
+</body>
+</html>
